@@ -2,9 +2,9 @@ import React from "react";
 
 const Guarantee = ({ img, title, description }) => {
   return (
-    <div>
+    <div className="section">
       <img src={img} alt={title} />
-      <h2 key={title}>{title}</h2>
+      <h2>{title}</h2>
       <p>{description}</p>
     </div>
   );

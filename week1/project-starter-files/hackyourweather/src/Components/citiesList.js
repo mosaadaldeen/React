@@ -1,10 +1,10 @@
 import React from "react";
-import CityWeather from "../city-weather.json";
+import cityWeather from "../city-weather.json";
 
-function cardCountry() {
+function CitiesList() {
   return (
     <div>
-      {CityWeather.map((data) => {
+      {cityWeather.map((data) => {
         return (
           <div className="Card" key={data.sys.id}>
             <h2>
@@ -25,4 +25,4 @@ function cardCountry() {
     </div>
   );
 }
-export default cardCountry;
+export default CitiesList;

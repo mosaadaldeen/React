@@ -1,25 +1,18 @@
 import React from "react";
 
-function HobbyList() {
+function HobbyList({ hobby }) {
   const hobbies = [
     "Surfing",
     "Rock climbing",
     "Mountain biking",
     "Breakdancing",
   ];
-  // const hobby = hobbies.map((hobby, index) => {
-  //   return (
-  //     <h2 key={index}>
-  //       {index} hobby: {hobby}
-  //     </h2>
-  //   );
-  // });
   return (
     <div>
       {hobbies.map((hobby, index) => {
         return (
           <h2 key={index}>
-            {index} hobby: {hobby}
+            {index + 1}- hobby: {hobby}
           </h2>
         );
       })}
@@ -27,7 +20,11 @@ function HobbyList() {
   );
 }
 
-// const Hobbies = () => {
-//   <HobbyList />;
-// };
-export default HobbyList;
+const Hobbies = () => {
+  return (
+    <div>
+      <HobbyList />
+    </div>
+  );
+};
+export default Hobbies;
