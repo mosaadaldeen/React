@@ -1,12 +1,13 @@
 import React from "react";
 import { LineChart, XAxis, Tooltip, CartesianGrid, Line } from "recharts";
 
-function chart({ dataToDraw }) {
+function Chart({ dataChart }) {
   return (
     <LineChart
+      className="chart"
       width={500}
       height={500}
-      data={dataToDraw}
+      data={dataChart}
       margin={{ top: 5, right: 10, left: 10, bottom: 5 }}
     >
       <XAxis dataKey="name" />
@@ -18,4 +19,4 @@ function chart({ dataToDraw }) {
   );
 }
 
-export default chart;
+export default Chart;

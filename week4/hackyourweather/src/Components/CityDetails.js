@@ -4,64 +4,53 @@ import Chart from "./chart";
 
 const KEY = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
 
-function CityDetails() {
+const CityDetails = () => {
   const { cityId } = useParams();
   const history = useHistory();
-  const [dataToDraw, setDataToDraw] = useState([]);
+  const [dataChart, setDataChart] = useState([]);
   const [cityName, setCityName] = useState("");
-  const [countryName, setCountryName] = useState("");
-  const [isLoading, setLoading] = useState(false);
   const [hasError, setError] = useState(false);
 
-  const fetchDetails = async (id) => {
+  const fetchCityDetails = async (id) => {
     try {
       const data = await fetch(
-        `https://openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${KEY}`
-        // `https://openweathermap.org/data/2.5/forecast?&units=metric&id=${id}&appid=${KEY}`
-        // `https://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${KEY}`
+        `https://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${KEY}`
       );
-      setLoading(true);
-      let fiveDaysData = await data.json();
-      setCityName(fiveDaysData.city.name);
-      setCountryName(fiveDaysData.city.country);
+      let result = await data.json();
+      setCityName(result.city.name);
       let chartData = [];
-      for (let i = 0; i < fiveDaysData.list.length; i += 8)
+      for (let i = 0; i < result.list.length; i += 8)
         chartData = [
           ...chartData,
           {
-            name: fiveDaysData.list[i].dt_txt.substr(0, 10),
-            uv: fiveDaysData.list[i].main.temp,
+            name: result.list[i].dt_txt,
+            uv: result.list[i].main.temp,
           },
         ];
-
-      setLoading(false);
       return chartData;
     } catch (error) {
       setError(true);
-      console.error(error);
     }
   };
 
-  function navigateToHome() {
-    history.push("/");
-  }
-
   useEffect(() => {
-    fetchDetails(cityId).then((data) => setDataToDraw(data));
-  }, []);
+    fetchCityDetails(cityId).then((data) => setDataChart(data));
+  });
 
   return (
-    <>
-      <div>
-        {cityName} , {countryName}
-      </div>
-      <div>{!isLoading && <Chart dataToDraw={dataToDraw}></Chart>}</div>
+    <div className="cityDetails">
+      {cityName}
+      {!hasError && <Chart dataChart={dataChart}></Chart>}
       <div>{hasError && <p>Sorry can't load chart</p>}</div>
-      <button className="btn btn-primary" onClick={navigateToHome}>
+      <button
+        onClick={() => {
+          history.goBack();
+        }}
+      >
         Home
       </button>
-    </>
+    </div>
   );
-}
+};
 
 export default CityDetails;
