@@ -17,17 +17,7 @@ const CityDetails = () => {
         `https://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${KEY}`
       );
       let result = await data.json();
-      setCityName(result.city.name);
-      let chartData = [];
-      for (let i = 0; i < result.list.length; i += 8)
-        chartData = [
-          ...chartData,
-          {
-            name: result.list[i].dt_txt,
-            uv: result.list[i].main.temp,
-          },
-        ];
-      return chartData;
+      setCityName(result.list);
     } catch (error) {
       setError(true);
     }

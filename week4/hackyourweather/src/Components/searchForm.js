@@ -18,10 +18,12 @@ function SearchForm() {
         }
       })
       .then((result) => {
+        console.log(result);
         const results = {
+          id: result.id,
           name: result.name,
           country: result.sys.country,
-          weather: result.weather[0].main,
+          main: result.weather[0].main,
           description: result.weather[0].description,
           max_temp: result.main.temp_max,
           min_temp: result.main.temp_min,
